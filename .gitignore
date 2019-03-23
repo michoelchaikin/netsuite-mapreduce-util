@@ -1,0 +1,6 @@
+.idea/
+.sdf
+.sdfcli.json
+node_modules/
+suiteapp/
+error.log
