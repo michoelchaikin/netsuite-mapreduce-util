@@ -18,6 +18,44 @@ NOTE: this project is currently in still in proof on concept stage and should no
 
 When this project is stable it will be available as a SuiteBundle. Meanwhile it needs to be installed via SDF.
 
+## Pipeline / To Do List
+
+### Select Deployment
+
+[ ] Add script drop down and retrieve results for all deployments if only a script is selected
+[ ] Refresh button on deployment (and script) drop-down to reload available deployments
+[ ] Display feedback on if run button click was successful
+
+### Instances
+
+[ ] Sort instance stages correctly (Get Input Data, Map etc..)
+[ ] Show overall status correctly (time started/ended/progress etc..)
+[ ] Show failed instances in red
+
+### Execution Log
+
+[ ] JSON tree viewer for the data field in logs (using something like https://www.npmjs.com/package/vue-json-tree-view)
+[ ] Option to clear logs?
+[ ] Make it clearer when new logs are added (maybe a button "Load New Logs" twitter style, or just color logs differently for first couple seconds)
+[ ] Add ability to filter by log type (DEBUG, AUDIT etc..)
+[ ] Add search box to filter logs
+
+### Vue
+
+[ ] Update to Vuetify 3 when available for fixed table headers etc..
+[ ] Don't use Vue development mode for production builds
+[ ] Move Vue template from the DOM (to text/x-template tags?) to hide flashing when loading
+[ ] Re-factor into separate Vue components (and maybe separate .vue files with build step?)
+
+### General
+
+[ ] Auto refreshing rate should be more frequent when an instance is running (maybe up to every 1 sec) and slower when not
+[ ] Visual feedback when refreshing is happening
+[ ] Date range for retrieving logs/instances - instead of hard-coding to today, could either display a date range option in the UI, or retrieve the most recent n entries irrespective of date?
+[ ] Proper error checking on API calls
+[ ] Add a Menu link in NetSuite
+[ ] Resize iframe container according to content size (see https://stackoverflow.com/questions/9975810 for ideas)
+
 ## Usage
 
 (coming soon)
@@ -30,7 +68,7 @@ Michoel Chaikin <[micholi@gmail.com](mailto:micholi@gmail.com)>
 
 The MIT License (MIT)
 
-Copyright (c) 2017 Michoel Chaikin
+Copyright (c) 2019 Michoel Chaikin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
