@@ -1,6 +1,13 @@
-function callNetSuiteAPI(action, payload = null) {
+async function callNetSuiteAPI(action, payload = null) {
   const url = `scriptlet.nl?script=customscript_mos_mapreduceutil_sl&deploy=customdeploy_mos_mapreduceutil_sl&cust_action=${action}`;
-  return payload ? axios.post(url, payload) : axios.get(url);
+  const response = await (payload ? axios.post(url, payload) : axios.get(url));
+
+  // TODO: add error checking here
+
+  // NetSuite arbitrarily adds logging comments to the end of Suitelet responses
+  return typeof response.data === 'string'
+    ? JSON.parse(response.data.replace(/<!--(.*?)-->/g, ''))
+    : response.data;
 }
 
 new Vue({
@@ -52,8 +59,7 @@ new Vue({
   },
   methods: {
     async updateDeployments() {
-      const response = await callNetSuiteAPI('getDeployments');
-      this.deployments = response.data;
+      this.deployments = await callNetSuiteAPI('getDeployments');
     },
     async runScript() {
       this.isStartingRun = true;
@@ -62,22 +68,19 @@ new Vue({
       this.updateDeploymentInfo();
     },
     async updateInstances() {
-      const response = await callNetSuiteAPI(
-        'getInstances',
-        this.selectedDeployment.value
-      );
-      this.instances = response.data;
+      const deploymentId = this.selectedDeployment.value;
+      this.instances = await callNetSuiteAPI('getInstances', deploymentId);
     },
     async updateLogs() {
-      const response = await callNetSuiteAPI('getLogs', {
+      const logs = await callNetSuiteAPI('getLogs', {
         lastLogId: this.lastLogId,
         deploymentInternalID: this.selectedDeployment.value
           .deploymentInternalID,
       });
-      // TODO: check response for errors
-      if(response.data.length) {
-        this.logs = this.logs.concat(response.data);
-        this.lastLogId = this.logs[this.logs.length - 1].id;  
+
+      if (logs.length) {
+        this.logs = this.logs.concat(logs);
+        this.lastLogId = this.logs[this.logs.length - 1].id;
       }
     },
     async updateDeploymentInfo() {
