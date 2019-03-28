@@ -12,6 +12,7 @@ async function callNetSuiteAPI(action, payload = null) {
 
 new Vue({
   el: '#app',
+  template: '#template',
   data() {
     return {
       instancesHeaders: [

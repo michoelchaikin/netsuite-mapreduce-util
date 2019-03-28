@@ -1,16 +1,17 @@
 # NetSuite Map Reduce Util
+
 ## Synopsis
 
 A NetSuite Suitelet to aid in developing and testing Map Reduce Scripts
 
-![Screen Shot 1](resource/screenshot.gif?raw=true "Screenshot")
+![Screen Shot 1](resource/screenshot.gif?raw=true 'Screenshot')
 
 ## Features
 
 - Quick click to run a Map Reduce script
 - View running M/R instances status with automatic refreshing
 - View script execution logs with automatic refreshing
-all in a single screen
+  all in a single screen
 
 NOTE: this project is currently in still in proof on concept stage and should not be considered stable at all!.
 
@@ -44,7 +45,7 @@ When this project is stable it will be available as a SuiteBundle. Meanwhile it 
 
 [ ] Update to Vuetify 3 when available for fixed table headers etc..
 [ ] Don't use Vue development mode for production builds
-[ ] Move Vue template from the DOM (to text/x-template tags?) to hide flashing when loading
+[x] Move Vue template from the DOM (to text/x-template tags?) to hide flashing when loading
 [ ] Re-factor into separate Vue components (and maybe separate .vue files with build step?)
 
 ### General
