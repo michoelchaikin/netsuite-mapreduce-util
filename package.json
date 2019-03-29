@@ -16,5 +16,7 @@
   "devDependencies": {
     "@hitc/netsuite-types": "^2019.1.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "typescript": "^3.3.4000"
+  }
 }
