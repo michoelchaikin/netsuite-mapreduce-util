@@ -41,9 +41,11 @@ function showForm(context: EntryPoints.Suitelet.onRequestContext) {
   const url =
     '/app/site/hosting/scriptlet.nl?script=customscript_mos_mapreduceutil_sl&deploy=customdeploy_mos_mapreduceutil_sl&cust_action=getAsset&cust_asset=index.html';
 
-  form.addField(
-    { id: 'content', label: 'Content', type: ui.FieldType.INLINEHTML }
-  ).defaultValue = `<iframe src="${url}" style="display: block; height: 73vh; width: 100%; border: none;"></iframe>`;
+  form.addField({
+    id: 'content',
+    label: 'Content',
+    type: ui.FieldType.INLINEHTML,
+  }).defaultValue = `<iframe src="${url}" style="display: block; height: 73vh; width: 100%; border: none;"></iframe>`;
   context.response.writePage(form);
 }
 
@@ -151,23 +153,58 @@ function convertPacificDateToEpoch(date) {
   return typeof dateObj.getTime === 'function' ? dateObj.getTime() : null;
 }
 
-function getInstances(context: EntryPoints.Suitelet.onRequestContext) {
-  const payload = JSON.parse(context.request.body);
+function getRecentTasks(deploymentId) {
+  const results = [];
 
-  const results = {};
+  let count = 0;
 
   search
     .create({
       type: search.Type.SCHEDULED_SCRIPT_INSTANCE,
       filters: [
-        ['datecreated', search.Operator.WITHIN, 'today'],
-        'AND',
-        [
-          'scriptdeployment.internalid',
-          search.Operator.ANYOF,
-          payload.deploymentInternalID,
-        ],
+        ['scriptdeployment.internalid', search.Operator.ANYOF, deploymentId],
       ],
+      columns: [
+        search.createColumn({
+          name: 'taskid',
+          summary: search.Summary.GROUP,
+        }),
+        search.createColumn({
+          name: 'datecreated',
+          summary: search.Summary.MIN,
+          sort: search.Sort.DESC,
+        }),
+      ],
+    })
+    .run()
+    .each(result => {
+      const taskId = result.getValue({
+        name: 'taskid',
+        summary: search.Summary.GROUP,
+      });
+      results.push(taskId);
+      return ++count < 5;
+    });
+
+  return results;
+}
+
+function getTasksStageDetails(taskIds: string[]) {
+  const results = {};
+
+  const filters = [];
+
+  taskIds.forEach((taskId, index) => {
+    filters.push(['taskid', search.Operator.IS, taskId]);
+    if (index < taskIds.length - 1) {
+      filters.push('OR');
+    }
+  });
+
+  search
+    .create({
+      type: search.Type.SCHEDULED_SCRIPT_INSTANCE,
+      filters,
       columns: [
         'taskid',
         'datecreated',
@@ -176,8 +213,6 @@ function getInstances(context: EntryPoints.Suitelet.onRequestContext) {
         'mapreducestage',
         'startdate',
         'enddate',
-        // 'queue',
-        // 'queueposition',
       ],
     })
     .run()
@@ -185,34 +220,68 @@ function getInstances(context: EntryPoints.Suitelet.onRequestContext) {
       const taskId = String(result.getValue({ name: 'taskid' }));
 
       if (!results.hasOwnProperty(taskId)) {
-        results[taskId] = {
-          taskId,
-          dateCreated: convertPacificDateToEpoch(
-            result.getValue({ name: 'datecreated' })
-          ),
-          status: result.getValue({ name: 'status' }),
-          percentComplete: result.getValue({ name: 'percentcomplete' }),
-          stages: [],
-        };
+        results[taskId] = [];
       }
 
-      results[taskId].stages.push({
+      results[taskId].push({
         stage: result.getValue({ name: 'mapreducestage' }),
+        dateCreated: convertPacificDateToEpoch(
+          result.getValue({ name: 'datecreated' })
+        ),
         startDate: convertPacificDateToEpoch(
           result.getValue({ name: 'startdate' })
         ),
         endDate: convertPacificDateToEpoch(
           result.getValue({ name: 'enddate' })
         ),
+        status: result.getValue({ name: 'status' }),
+        percentComplete: result.getValue({ name: 'percentcomplete' }),
       });
 
       return true;
     });
 
-  // Object.values not available in ES5
-  const resultsArray = Object.keys(results).map(key => results[key]);
+  return results;
+}
 
-  context.response.write(JSON.stringify(resultsArray, null, 2));
+function getInstances(context: EntryPoints.Suitelet.onRequestContext) {
+  const capitalize = (text: string) =>
+    text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+
+  const stagesSortOrder = {
+    'Get Input Data': 1,
+    Map: 2,
+    Reduce: 3,
+    Shuffle: 4,
+    Summarize: 5,
+  };
+
+  const payload = JSON.parse(context.request.body);
+
+  const results = {};
+
+  const recentTasks = getRecentTasks(payload.deploymentInternalID);
+  const stageDetails = getTasksStageDetails(recentTasks);
+
+  const tasks = recentTasks.map(taskId => {
+    const status = <task.MapReduceScriptTaskStatus>task.checkStatus(taskId);
+    const stages = stageDetails[taskId].sort(
+      (a, b) => stagesSortOrder[a.stage] - stagesSortOrder[b.stage]
+    );
+
+    return {
+      taskId,
+      dateCreated: stages[0].dateCreated,
+      startDate: stages[0].startDate,
+      endDate: stages[stages.length - 1].endDate,
+      percentComplete: status.getPercentageCompleted(),
+      status: capitalize(String(status.status)),
+      currentStage: capitalize(String(status.stage)),
+      stages,
+    };
+  });
+
+  context.response.write(JSON.stringify(tasks, null, 2));
 }
 
 function getLogs(context: EntryPoints.Suitelet.onRequestContext) {

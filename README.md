@@ -29,13 +29,13 @@ When this project is stable it will be available as a SuiteBundle. Meanwhile it 
 
 ### Instances
 
-- [ ] Sort instance stages correctly (Get Input Data, Map etc..)
-- [ ] Show overall status correctly (time started/ended/progress etc..)
+- [x] Sort instance stages correctly (Get Input Data, Map etc..)
+- [x] Show overall status correctly (time started/ended/progress etc..)
 - [ ] Show failed instances in red
 
 ### Execution Log
 
-- [ ] JSON tree viewer for the data field in logs (using something like https://www.npmjs.com/package/vue-json-tree-view)
+- [x] JSON tree viewer for the data field in logs (using something like https://www.npmjs.com/package/vue-json-tree-view)
 - [ ] Option to clear logs?
 - [ ] Make it clearer when new logs are added (maybe a button "Load New Logs" twitter style, or just color logs differently for first couple seconds)
 - [ ] Add ability to filter by log type (DEBUG, AUDIT etc..)

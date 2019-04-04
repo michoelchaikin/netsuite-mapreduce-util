@@ -30,7 +30,11 @@ define(["require", "exports", "N/search", "N/ui/serverWidget", "N/file", "N/erro
     function showForm(context) {
         var form = ui.createForm({ title: 'Map Reduce Util' });
         var url = '/app/site/hosting/scriptlet.nl?script=customscript_mos_mapreduceutil_sl&deploy=customdeploy_mos_mapreduceutil_sl&cust_action=getAsset&cust_asset=index.html';
-        form.addField({ id: 'content', label: 'Content', type: ui.FieldType.INLINEHTML }).defaultValue = "<iframe src=\"" + url + "\" style=\"display: block; height: 73vh; width: 100%; border: none;\"></iframe>";
+        form.addField({
+            id: 'content',
+            label: 'Content',
+            type: ui.FieldType.INLINEHTML,
+        }).defaultValue = "<iframe src=\"" + url + "\" style=\"display: block; height: 73vh; width: 100%; border: none;\"></iframe>";
         context.response.writePage(form);
     }
     function getScriptFileId(scriptId) {
@@ -121,21 +125,51 @@ define(["require", "exports", "N/search", "N/ui/serverWidget", "N/file", "N/erro
         // @ts-ignore
         return typeof dateObj.getTime === 'function' ? dateObj.getTime() : null;
     }
-    function getInstances(context) {
-        var payload = JSON.parse(context.request.body);
-        var results = {};
+    function getRecentTasks(deploymentId) {
+        var results = [];
+        var count = 0;
         search
             .create({
             type: search.Type.SCHEDULED_SCRIPT_INSTANCE,
             filters: [
-                ['datecreated', search.Operator.WITHIN, 'today'],
-                'AND',
-                [
-                    'scriptdeployment.internalid',
-                    search.Operator.ANYOF,
-                    payload.deploymentInternalID,
-                ],
+                ['scriptdeployment.internalid', search.Operator.ANYOF, deploymentId],
             ],
+            columns: [
+                search.createColumn({
+                    name: 'taskid',
+                    summary: search.Summary.GROUP,
+                }),
+                search.createColumn({
+                    name: 'datecreated',
+                    summary: search.Summary.MIN,
+                    sort: search.Sort.DESC,
+                }),
+            ],
+        })
+            .run()
+            .each(function (result) {
+            var taskId = result.getValue({
+                name: 'taskid',
+                summary: search.Summary.GROUP,
+            });
+            results.push(taskId);
+            return ++count < 5;
+        });
+        return results;
+    }
+    function getTasksStageDetails(taskIds) {
+        var results = {};
+        var filters = [];
+        taskIds.forEach(function (taskId, index) {
+            filters.push(['taskid', search.Operator.IS, taskId]);
+            if (index < taskIds.length - 1) {
+                filters.push('OR');
+            }
+        });
+        search
+            .create({
+            type: search.Type.SCHEDULED_SCRIPT_INSTANCE,
+            filters: filters,
             columns: [
                 'taskid',
                 'datecreated',
@@ -150,24 +184,50 @@ define(["require", "exports", "N/search", "N/ui/serverWidget", "N/file", "N/erro
             .each(function (result) {
             var taskId = String(result.getValue({ name: 'taskid' }));
             if (!results.hasOwnProperty(taskId)) {
-                results[taskId] = {
-                    taskId: taskId,
-                    dateCreated: convertPacificDateToEpoch(result.getValue({ name: 'datecreated' })),
-                    status: result.getValue({ name: 'status' }),
-                    percentComplete: result.getValue({ name: 'percentcomplete' }),
-                    stages: [],
-                };
+                results[taskId] = [];
             }
-            results[taskId].stages.push({
+            results[taskId].push({
                 stage: result.getValue({ name: 'mapreducestage' }),
+                dateCreated: convertPacificDateToEpoch(result.getValue({ name: 'datecreated' })),
                 startDate: convertPacificDateToEpoch(result.getValue({ name: 'startdate' })),
                 endDate: convertPacificDateToEpoch(result.getValue({ name: 'enddate' })),
+                status: result.getValue({ name: 'status' }),
+                percentComplete: result.getValue({ name: 'percentcomplete' }),
             });
             return true;
         });
-        // Object.values not available in ES5
-        var resultsArray = Object.keys(results).map(function (key) { return results[key]; });
-        context.response.write(JSON.stringify(resultsArray, null, 2));
+        return results;
+    }
+    function getInstances(context) {
+        var capitalize = function (text) {
+            return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+        };
+        var stagesSortOrder = {
+            'Get Input Data': 1,
+            Map: 2,
+            Reduce: 3,
+            Shuffle: 4,
+            Summarize: 5,
+        };
+        var payload = JSON.parse(context.request.body);
+        var results = {};
+        var recentTasks = getRecentTasks(payload.deploymentInternalID);
+        var stageDetails = getTasksStageDetails(recentTasks);
+        var tasks = recentTasks.map(function (taskId) {
+            var status = task.checkStatus(taskId);
+            var stages = stageDetails[taskId].sort(function (a, b) { return stagesSortOrder[a.stage] - stagesSortOrder[b.stage]; });
+            return {
+                taskId: taskId,
+                dateCreated: stages[0].dateCreated,
+                startDate: stages[0].startDate,
+                endDate: stages[stages.length - 1].endDate,
+                percentComplete: status.getPercentageCompleted(),
+                status: capitalize(String(status.status)),
+                currentStage: capitalize(String(status.stage)),
+                stages: stages,
+            };
+        });
+        context.response.write(JSON.stringify(tasks, null, 2));
     }
     function getLogs(context) {
         var payload = JSON.parse(context.request.body);

@@ -59,6 +59,7 @@
                   :expand="instancesExpand"
                   item-key="taskId"
                   :pagination.sync="instancesPagination"
+                  hide-actions
                 >
                   <template v-slot:items="props">
                     <tr @click="props.expanded = !props.expanded">
@@ -69,10 +70,10 @@
                         <v-icon v-else @click="">remove_circle</v-icon>
                       </td>
                       <td>{{ props.item.dateCreated | formatDate }}</td>
-                      <td></td>
-                      <td></td>
-                      <td>{{ props.item.percentComplete }}</td>
+                      <td>{{ props.item.startDate | formatDate }}</td>
+                      <td>{{ props.item.endDate | formatDate }}</td>
                       <td>{{ props.item.status }}</td>
+                      <td>{{ props.item.percentComplete }}%</td>
                     </tr>
                   </template>
 
@@ -99,8 +100,12 @@
                           <td :width="instancesHeaders[3].width">
                             {{ props.item.endDate | formatDate }}
                           </td>
-                          <td :width="instancesHeaders[4].width"></td>
-                          <td :width="instancesHeaders[5].width"></td>
+                          <td :width="instancesHeaders[4].width">
+                            {{ props.item.status }}
+                          </td>
+                          <td :width="instancesHeaders[5].width">
+                            {{ props.item.percentComplete }}
+                          </td>
                         </tr>
                       </template>
                     </v-data-table>

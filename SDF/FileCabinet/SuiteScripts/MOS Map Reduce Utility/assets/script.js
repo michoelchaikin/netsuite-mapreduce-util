@@ -20,8 +20,8 @@ new Vue({
         { text: 'Date Created', value: 'dateCreated', width: '19%' },
         { text: 'Date Started', value: '', width: '19%' },
         { text: 'Date Finished', value: '', width: '19%' },
-        { text: 'Percent Complete', value: 'percentComplete', width: '19%' },
         { text: 'Status', value: 'status', width: '19%' },
+        { text: 'Percent Complete', value: 'percentComplete', width: '19%' },
       ],
       logsHeaders: [
         { text: 'Type', value: 'type', width: '10%' },
@@ -93,6 +93,15 @@ new Vue({
     },
   },
   filters: {
-    formatDate: date => (date ? new Date(date).toLocaleString() : ''),
+    formatDate: date =>
+      date
+        ? new Date(date).toLocaleString([], {
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          })
+        : '',
   },
 });
