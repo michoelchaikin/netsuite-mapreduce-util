@@ -7,7 +7,7 @@
     "build:bundle": "node postbuild",
     "build:dev": "npm run build:vue && npm run build:bundle",
     "build:vue": "vue-cli-service build",
-    "remove:build": "rm -rf ./mru o5dYJbA1LN && rm -rf ./mru o5dYJbA1LN.zip",    
+    "remove:build": "rm -rf ./mru o5dYJbA1LN && rm -rf ./mru o5dYJbA1LN.zip",
     "start": "vue-cli-service serve"
   },
   "dependencies": {
