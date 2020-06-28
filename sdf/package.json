@@ -4,7 +4,9 @@
   "scripts": {
     "setup": "npm run build && suitecloud account:setup",
     "deploy": "npm run build && suitecloud project:deploy",
-    "build": "shx rm -rf dist && tsc && copyfiles -f src/Objects/*.xml dist/Objects && copyfiles -f src/*.xml dist/"
+    "build": "shx rm -rf dist && tsc && npm run copy:xml && npm run copy:build",
+    "copy:xml": "copyfiles -f src/Objects/*.xml dist/Objects && copyfiles -f src/*.xml dist/",
+    "copy:build": "copyfiles -u 1 \"src/FileCabinet/SuiteScripts/mapreduce-util/mru o5dYJbA1LN/**\"  dist/"
   },
   "devDependencies": {
     "shx": "^0.3.2",
