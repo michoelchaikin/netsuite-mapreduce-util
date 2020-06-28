@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "module": "amd",
+        "target": "es6",
+        "moduleResolution": "node",
+        "sourceMap": false,
+        "newLine": "LF",
+        "allowJs": true,
+        "outDir": "dist/FileCabinet/SuiteScripts/mapreduce-util",
+        "experimentalDecorators": true,
+        "noImplicitUseStrict": true,
+        "baseUrl": ".",
+        "lib": [
+            "es6",
+            "es5",
+            "es2015.promise",
+            "dom",
+            "es2015.iterable"
+        ],
+        "paths": {
+            "N": [
+                "node_modules/@hitc/netsuite-types/N"
+            ],
+            "N/*": [
+                "node_modules/@hitc/netsuite-types/N/*"
+            ]
+        }
+    },
+    "exclude": [
+        "node_modules", "suitecloud.config.js"
+    ]
+}
