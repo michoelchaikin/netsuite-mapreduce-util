@@ -33,6 +33,7 @@
     "deepmerge": "^4.2.2",
     "fibers": "^5.0.0",
     "mv": "^2.1.1",
+    "rimraf": "^3.0.2",
     "sass": "^1.26.8",
     "sass-loader": "^8.0.2",
     "typescript": "~3.8.3",
