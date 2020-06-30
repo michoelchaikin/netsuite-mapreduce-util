@@ -3,6 +3,7 @@ import axios from "axios"
 import App from "./App.vue"
 import nsConnect from "./ns-connect-dev"
 import vuetify from "./plugin/vuetify"
+import "./filters"
 import { REST } from './utils'
 
 if (process.env.NODE_ENV === "development") {
