@@ -11,7 +11,15 @@ if (process.env.NODE_ENV === "production") {
     })
   }
 }
-vueConfig.devServer = { proxy: "https://1678366.restlets.api.netsuite.com" }
+
+const { VUE_APP_NS_ACCOUNT_ID } = process.env
+
+const proxy = `https://${VUE_APP_NS_ACCOUNT_ID.replace(
+  "_",
+  "-"
+  ).toLowerCase()}.restlets.api.netsuite.com`
+
+vueConfig.devServer = { proxy }
 vueConfig.transpileDependencies = ["vuetify"]
 
 module.exports = vueConfig
