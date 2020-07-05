@@ -10,7 +10,7 @@ const {
   VUE_APP_NS_CONSUMER_SECRET,
 } = process.env
 // var NS_DEPLOYMENT_ID = '1'
-const restletURL = `https://${VUE_APP_NS_ACCOUNT_ID.replace(
+const restletURL = `https://${(VUE_APP_NS_ACCOUNT_ID || '').replace(
   "_",
   "-"
 ).toLowerCase()}.restlets.api.netsuite.com/app/site/hosting/restlet.nl`

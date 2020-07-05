@@ -8,87 +8,6 @@
   <notifyuser>F</notifyuser>
   <scriptfile>[/SuiteScripts/mapreduce-util/scripts/suitelets/mru_mru_sl.js]</scriptfile>
     <scriptcustomfields>
-    <scriptcustomfield scriptid="custscript_mru_rl_script_id">
-      <accesslevel>2</accesslevel>
-      <applyformatting>F</applyformatting>
-      <checkspelling>F</checkspelling>
-      <defaultchecked>F</defaultchecked>
-      <defaultselection></defaultselection>
-      <defaultvalue></defaultvalue>
-      <description>The restlet script id. Injected into react on page load</description>
-      <displayheight></displayheight>
-      <displaytype>NORMAL</displaytype>
-      <displaywidth></displaywidth>
-      <dynamicdefault></dynamicdefault>
-      <fieldtype>TEXT</fieldtype>
-      <help></help>
-      <isformula>F</isformula>
-      <ismandatory>F</ismandatory>
-      <label>Restlet Script ID</label>
-      <linktext></linktext>
-      <maxlength></maxlength>
-      <maxvalue></maxvalue>
-      <minvalue></minvalue>
-      <onparentdelete></onparentdelete>
-      <searchlevel>2</searchlevel>
-      <selectrecordtype></selectrecordtype>
-      <setting></setting>
-      <storevalue>T</storevalue>
-    </scriptcustomfield>
-    <scriptcustomfield scriptid="custscript_mru_build_folder">
-      <accesslevel>2</accesslevel>
-      <applyformatting>F</applyformatting>
-      <checkspelling>F</checkspelling>
-      <defaultchecked>F</defaultchecked>
-      <defaultselection></defaultselection>
-      <defaultvalue></defaultvalue>
-      <description>The name of the your client build folder. This build folder needs to be unique to every other folder in the file cabinet</description>
-      <displayheight></displayheight>
-      <displaytype>NORMAL</displaytype>
-      <displaywidth></displaywidth>
-      <dynamicdefault></dynamicdefault>
-      <fieldtype>TEXT</fieldtype>
-      <help></help>
-      <isformula>F</isformula>
-      <ismandatory>F</ismandatory>
-      <label>Build Folder</label>
-      <linktext></linktext>
-      <maxlength></maxlength>
-      <maxvalue></maxvalue>
-      <minvalue></minvalue>
-      <onparentdelete></onparentdelete>
-      <searchlevel>2</searchlevel>
-      <selectrecordtype></selectrecordtype>
-      <setting></setting>
-      <storevalue>T</storevalue>
-    </scriptcustomfield>
-        <scriptcustomfield scriptid="custscript_mru_rl_deployment_id">
-      <accesslevel>2</accesslevel>
-      <applyformatting>F</applyformatting>
-      <checkspelling>F</checkspelling>
-      <defaultchecked>F</defaultchecked>
-      <defaultselection></defaultselection>
-      <defaultvalue></defaultvalue>
-      <description>The restlet deployment script id</description>
-      <displayheight></displayheight>
-      <displaytype>NORMAL</displaytype>
-      <displaywidth></displaywidth>
-      <dynamicdefault></dynamicdefault>
-      <fieldtype>TEXT</fieldtype>
-      <help></help>
-      <isformula>F</isformula>
-      <ismandatory>F</ismandatory>
-      <label>Restlet Deployment ID</label>
-      <linktext></linktext>
-      <maxlength></maxlength>
-      <maxvalue></maxvalue>
-      <minvalue></minvalue>
-      <onparentdelete></onparentdelete>
-      <searchlevel>2</searchlevel>
-      <selectrecordtype></selectrecordtype>
-      <setting></setting>
-      <storevalue>T</storevalue>
-    </scriptcustomfield>
     <scriptcustomfield scriptid="custscript_mru_show_nav">
       <accesslevel>2</accesslevel>
       <applyformatting>F</applyformatting>
@@ -122,9 +41,6 @@
       <allemployees>T</allemployees>
       <allpartners>F</allpartners>
       <allroles>T</allroles>
-      <custscript_mru_rl_script_id>customscript_mru_mru_rl</custscript_mru_rl_script_id>
-      <custscript_mru_rl_deployment_id>customdeploy_mru_mru_rl</custscript_mru_rl_deployment_id>
-      <custscript_mru_build_folder>mru o5dYJbA1LN</custscript_mru_build_folder>
       <custscript_mru_show_nav>T</custscript_mru_show_nav>
       <audslctrole></audslctrole>
       <eventtype></eventtype>
