@@ -1,5 +1,4 @@
 node_modules
 .env*
 SDF/src/FileCabinet/SuiteScripts/mapreduce-util/client
-SDF/dist/
 SDF/project.json

@@ -19,6 +19,14 @@ NOTE: this project is currently in still in proof on concept stage and should no
 
 When this project is stable it will be available as a SuiteBundle. Meanwhile it needs to be installed via SDF.
 
+1. Install [SuiteCloud CLI for Node.js](https://github.com/oracle/netsuite-suitecloud-sdk/tree/master/packages/node-cli)
+2. Run `suitecloud account:setup` in the SDF folder
+3. Run `suitecloud project:deploy` in the SDF folder
+
+## Building
+
+The project was bootstrapped using [create-spa-netsuite](https://www.npmjs.com/package/@finitydevs/create-spa-netsuite). Follow the instructions there.
+
 ## Pipeline / To Do List
 
 ### Select Deployment

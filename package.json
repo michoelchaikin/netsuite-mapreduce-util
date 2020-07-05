@@ -1,6 +1,6 @@
 {
   "name": "netsuite-mapreduce-util",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A utility to aid in testing and developing NetSuite Map Reduce scripts",
   "repository": {
     "type": "git",
@@ -12,5 +12,5 @@
   "homepage": "https://github.com/michoelchaikin/netsuite-mapreduce-util/#readme",
   "license": "MIT",
   "main": "index.js",
-  "author": "\"Michoel Chaikin\" <micholi@gmail.com>"
+  "author": "\"Michoel Chaikin\" <michoel@gmail.com>"
 }

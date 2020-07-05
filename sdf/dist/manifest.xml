@@ -1,0 +1,10 @@
+<manifest projecttype="ACCOUNTCUSTOMIZATION">
+  <projectname>netsuite-mapreduce-util</projectname>
+  <frameworkversion>1.0</frameworkversion>
+  <dependencies>
+    <features>
+      <feature required="true">SERVERSIDESCRIPTING</feature>
+      <feature required="true">CRM</feature>
+    </features>
+  </dependencies>
+</manifest>
