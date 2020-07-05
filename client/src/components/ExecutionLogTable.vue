@@ -18,7 +18,7 @@
     >
       <template v-slot:expanded-item="{ item, headers: logsHeaders }">
         <td :colspan="logsHeaders.length">
-          <ExectutionLogItem :item="item" />
+          <ExecutionLogItem :item="item" />
         </td>
       </template>
     </v-data-table>
@@ -28,13 +28,13 @@
 <script lang="ts">
 import Vue from 'vue';
 
-import ExectutionLogItem from './ExecutionLogItem.vue';
+import ExecutionLogItem from './ExecutionLogItem.vue';
 
 export default Vue.extend({
   name: 'ExecutionLogTable',
 
   components: {
-    ExectutionLogItem,
+    ExecutionLogItem,
   },
 
   props: {
