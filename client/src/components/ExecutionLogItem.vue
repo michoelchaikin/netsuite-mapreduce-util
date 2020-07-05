@@ -1,7 +1,6 @@
 <template>
   <json-tree v-if="logDetailIsJSON" :raw="item.detail" />
   <pre v-else>{{ item.detail }}</pre>
-  
 </template>
 
 <script lang="ts">

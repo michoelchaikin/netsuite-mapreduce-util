@@ -8,7 +8,7 @@
       label="Select Deployment"
       return-object
       @input="$emit('input', $event)"
-    ></v-select>
+    />
     <v-btn
       :disabled="!value"
       :loading="isStartingRun"

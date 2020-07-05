@@ -1,5 +1,5 @@
 <template>
-  <v-card style="margin-top: 20px">
+  <v-card style="margin-top: 20px;">
     <v-toolbar color="indigo" dark>
       <v-toolbar-title>Execution Log</v-toolbar-title>
     </v-toolbar>
@@ -16,9 +16,9 @@
       disable-pagination
       hide-default-footer
     >
-      <template v-slot:expanded-item="{ headers, item }">
-        <td :colspan="headers.length">
-          <exectution-log-item :item="item" />
+      <template v-slot:expanded-item="{ item, headers: logsHeaders }">
+        <td :colspan="logsHeaders.length">
+          <ExectutionLogItem :item="item" />
         </td>
       </template>
     </v-data-table>
@@ -33,15 +33,15 @@ import ExectutionLogItem from './ExecutionLogItem.vue';
 export default Vue.extend({
   name: 'ExecutionLogTable',
 
+  components: {
+    ExectutionLogItem,
+  },
+
   props: {
     logs: {
       type: Array,
       required: true,
     },
-  },
-
-  components: {
-    ExectutionLogItem,
   },
 
   data() {

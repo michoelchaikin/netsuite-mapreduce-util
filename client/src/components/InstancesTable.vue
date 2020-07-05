@@ -30,32 +30,35 @@
         {{ item.percentComplete }}%
       </template>
 
-      <template v-slot:expanded-item="{ headers, item }">
-        <td :colspan="headers.length" style="padding:0">
+      <template v-slot:expanded-item="{ item, headers: instancesHeaders }">
+        <td :colspan="instancesHeaders.length" style="padding: 0;">
           <v-data-table
-            :headers="headers"
+            :headers="instancesHeaders"
             :items="item.stages"
             item-key="stage"
             hide-default-header
             hide-default-footer
-            style="border-radius:0"
+            style="border-radius: 0;"
           >
-            <template v-slot:item="{ item, headers }">
+            <template v-slot:item="{ item: stage }">
               <tr>
-                <td :width="headers[0].width" style="padding-left:100px">
-                  {{ item.stage }}
+                <td
+                  :width="instancesHeaders[0].width"
+                  style="padding-left: 100px;"
+                >
+                  {{ stage.stage }}
                 </td>
-                <td :width="headers[1].width">
-                  {{ item.startDate | formatDate }}
+                <td :width="instancesHeaders[1].width">
+                  {{ stage.startDate | formatDate }}
                 </td>
-                <td :width="headers[2].width">
-                  {{ item.endDate | formatDate }}
+                <td :width="instancesHeaders[2].width">
+                  {{ stage.endDate | formatDate }}
                 </td>
-                <td :width="headers[3].width">
-                  {{ item.status }}
+                <td :width="instancesHeaders[3].width">
+                  {{ stage.status }}
                 </td>
-                <td :width="headers[4].width">
-                  {{ item.percentComplete }}
+                <td :width="instancesHeaders[4].width">
+                  {{ stage.percentComplete }}
                 </td>
               </tr>
             </template>

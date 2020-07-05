@@ -4,14 +4,14 @@
       <v-container fluid>
         <v-layout align-center justify-center>
           <v-flex xs12 lg10 xl8>
-            <deployment-picker
+            <DeploymentPicker
               v-model="selectedDeployment"
               :deployments="deployments"
               :is-starting-run="isStartingRun"
               @runScript="runScript"
             />
-            <instances-table :instances="instances" />
-            <execution-log-table :logs="logs" />
+            <InstancesTable :instances="instances" />
+            <ExecutionLogTable :logs="logs" />
           </v-flex>
         </v-layout>
       </v-container>
@@ -47,17 +47,17 @@ export default Vue.extend({
     };
   },
 
-  mounted() {
-    this.updateDeployments();
-    setInterval(this.updateDeploymentInfo, 10000);
-  },
-
   watch: {
     selectedDeployment() {
       this.instances = [];
       this.logs = [];
       this.updateDeploymentInfo();
     },
+  },
+
+  mounted() {
+    this.updateDeployments();
+    setInterval(this.updateDeploymentInfo, 10000);
   },
 
   methods: {
