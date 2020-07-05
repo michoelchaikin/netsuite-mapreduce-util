@@ -43,10 +43,10 @@ When this project is stable it will be available as a SuiteBundle. Meanwhile it 
 
 ### Vue
 
-- [ ] Update to Vuetify 3 when available for fixed table headers etc..
-- [ ] Don't use Vue development mode for production builds
+- [x] Update to Vuetify 3 when available for fixed table headers etc..
+- [x] Don't use Vue development mode for production builds
 - [x] Move Vue template from the DOM (to text/x-template tags?) to hide flashing when loading
-- [ ] Re-factor into separate Vue components (and maybe separate .vue files with build step?)
+- [x] Re-factor into separate Vue components (and maybe separate .vue files with build step?)
 
 ### General
 
@@ -64,13 +64,13 @@ When this project is stable it will be available as a SuiteBundle. Meanwhile it 
 
 ## Author
 
-Michoel Chaikin <[micholi@gmail.com](mailto:micholi@gmail.com)>
+Michoel Chaikin <[michoel@gmail.com](mailto:michoel@gmail.com)>
 
 ## License
 
 The MIT License (MIT)
 
-Copyright (c) 2019 Michoel Chaikin
+Copyright (c) 2020 Michoel Chaikin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
