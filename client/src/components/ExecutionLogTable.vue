@@ -17,7 +17,7 @@
       hide-default-footer
     >
       <template v-slot:expanded-item="{ item, headers: logsHeaders }">
-        <td :colspan="logsHeaders.length">
+        <td :colspan="logsHeaders.length" style="padding: 0;">
           <ExecutionLogItem :item="item" />
         </td>
       </template>
