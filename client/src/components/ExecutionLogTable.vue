@@ -18,8 +18,7 @@
     >
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
-          <pre>{{ item.detail }}</pre>
-          <!-- <json-tree :raw="props.item.detail" /> -->
+          <exectution-log-item :item="item" />
         </td>
       </template>
     </v-data-table>
@@ -29,6 +28,8 @@
 <script lang="ts">
 import Vue from 'vue';
 
+import ExectutionLogItem from './ExecutionLogItem.vue';
+
 export default Vue.extend({
   name: 'ExecutionLogTable',
 
@@ -37,6 +38,10 @@ export default Vue.extend({
       type: Array,
       required: true,
     },
+  },
+
+  components: {
+    ExectutionLogItem,
   },
 
   data() {
