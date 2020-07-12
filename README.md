@@ -17,11 +17,12 @@ NOTE: this project is currently in still in proof on concept stage and should no
 
 ## Installation
 
-When this project is stable it will be available as a SuiteBundle. Meanwhile it needs to be installed via SDF.
+When this project is stable it will be available as a SuiteApp / Bundle. Meanwhile it needs to be installed via SDF. Releases are automatically built for each version via Github Actions.
 
-1. Install [SuiteCloud CLI for Node.js](https://github.com/oracle/netsuite-suitecloud-sdk/tree/master/packages/node-cli)
-2. Run `suitecloud account:setup` in the SDF folder
-3. Run `suitecloud project:deploy` in the SDF folder
+1. Download and unzip the [latest released](https://github.com/michoelchaikin/netsuite-mapreduce-util/releases/latest)
+2. Install [SuiteCloud CLI for Node.js](https://github.com/oracle/netsuite-suitecloud-sdk/tree/master/packages/node-cli)
+3. Run `suitecloud account:setup`
+4. Run `suitecloud project:deploy`
 
 ## Building
 
