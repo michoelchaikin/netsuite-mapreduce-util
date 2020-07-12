@@ -21,6 +21,6 @@ jobs:
       working-directory: client
       run: npm ci && npm run build
 
-    - name: build SDF
-      working-directory: SDF
+    - name: build sdf
+      working-directory: sdf
       run: npm ci && npm run build
