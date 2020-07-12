@@ -114,12 +114,21 @@ export default Vue.extend({
         },
       });
 
-      if (logs.length) {
-        this.logs = this.logs.concat(logs);
-        // TODO: fix this TS error :-)
-        // @ts-ignore: Property 'id' does not exist on type 'never'.
-        this.lastLogId = this.logs[this.logs.length - 1]?.id;
+      if (!logs.length) {
+        return;
       }
+
+      // Basic check that the logs haven't been added already, probably need to improve this logic
+      // TODO: fix this TS error :-)
+      // @ts-ignore: Property 'id' does not exist on type 'never'.
+      if (this.logs.some((log) => log.id === logs[0].id)) {
+        return;
+      }
+
+      this.logs = this.logs.concat(logs);
+      // TODO: fix this TS error :-)
+      // @ts-ignore: Property 'id' does not exist on type 'never'.
+      this.lastLogId = this.logs[this.logs.length - 1]?.id;
     },
 
     async updateDeploymentInfo() {
