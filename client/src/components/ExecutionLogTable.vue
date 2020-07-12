@@ -4,11 +4,22 @@
       <v-toolbar-title>Execution Log</v-toolbar-title>
     </v-toolbar>
 
+    <v-card-title>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
+
     <v-data-table
       :headers="headers"
       :items="logs"
       :options.sync="options"
       :expanded.sync="expanded"
+      :search="search"
       show-expand
       single-expand
       height="30vh"
@@ -58,6 +69,7 @@ export default Vue.extend({
         sortDesc: [true],
       },
       expanded: [],
+      search: '',
     };
   },
 });

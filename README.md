@@ -48,7 +48,7 @@ The project was bootstrapped using [create-spa-netsuite](https://www.npmjs.com/p
 - [ ] Option to clear logs?
 - [ ] Make it clearer when new logs are added (maybe a button "Load New Logs" twitter style, or just color logs differently for first couple seconds)
 - [ ] Add ability to filter by log type (DEBUG, AUDIT etc..)
-- [ ] Add search box to filter logs
+- [x] Add search box to filter logs
 
 ### Vue
 
