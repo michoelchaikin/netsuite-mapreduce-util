@@ -8,13 +8,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
+
     - name: use node
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    - name: build
-      run: |
-        cd client && npm ci && npm run build
-        cd ../sdf && npm ci && npm run build
+
+    - name: build client
+      working-directory: client
+      run: npm ci && npm run build
+
+    - name: build sdf
+      working-directory: sdf
+      run: npm ci && npm run build
