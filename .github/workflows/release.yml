@@ -1,0 +1,20 @@
+name: create-release
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: use node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: build
+      run: |
+        cd client && npm ci && npm run build
+        cd ../sdf && npm ci && npm run build
