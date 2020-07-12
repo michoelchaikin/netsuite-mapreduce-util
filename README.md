@@ -63,13 +63,13 @@ The project was bootstrapped using [create-spa-netsuite](https://www.npmjs.com/p
 - [ ] Visual feedback when refreshing is happening
 - [ ] Date range for retrieving logs/instances - instead of hard-coding to today, could either display a date range option in the UI, or retrieve the most recent n entries irrespective of date?
 - [ ] Proper error checking on API calls
-- [ ] Add a Menu link in NetSuite
+- [x] Add a Menu link in NetSuite
 - [ ] Resize iframe container according to content size (see https://stackoverflow.com/questions/9975810 for ideas)
 - [ ] Persist selected deployment on page refresh
 
 ## Usage
 
-(coming soon)
+To open the utility, navigate to `Setup > Customization > Map Reduce Utility`.
 
 ## Author
 

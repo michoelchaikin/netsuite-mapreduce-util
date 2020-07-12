@@ -50,6 +50,12 @@
       <runasrole></runasrole>
       <status>RELEASED</status>
       <title>MRU SL MRU</title>
+      <links>
+        <link>
+          <linkcategory>BASICSETUPCUSTOMIZATION</linkcategory>
+          <linklabel>Map Reduce Utility</linklabel>
+        </link>
+      </links>
     </scriptdeployment>
   </scriptdeployments>
 </suitelet>
