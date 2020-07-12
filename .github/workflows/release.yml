@@ -29,6 +29,12 @@ jobs:
         working-directory: sdf/dist
         run: zip -r ../../mapreduce-util.zip .
 
+      - name: changelog
+        uses: scottbrenner/generate-changelog-action@master
+        id: changelog
+        env:
+          REPO: ${{ github.repository }}
+
       - name: create release
         id: create_release
         uses: actions/create-release@v1
@@ -39,6 +45,8 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
+          body: |
+            ${{ steps.changelog.outputs.changelog }}
 
       - name: upload release asset
         id: upload-release-asset
