@@ -10,7 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: use node
         uses: actions/setup-node@v1
@@ -29,11 +32,24 @@ jobs:
         working-directory: sdf/dist
         run: zip -r ../../mapreduce-util.zip .
 
-      - name: changelog
-        uses: scottbrenner/generate-changelog-action@master
-        id: changelog
-        env:
-          REPO: ${{ github.repository }}
+      # create a release message based on commit messages
+      # idea based on https://github.com/ScottBrenner/generate-changelog-action but
+      # using generate-changelog directly because the new version already has a tag
+      # and so we need to search for and pass in the tag of the previous version
+
+      - name: generate changelog
+        id: generate_changelog
+        run: |
+          npm install -g generate-changelog
+          TAG=`git tag --sort=-v:refname | sed -n 2p`
+          echo "Generating changelog from tag $TAG"
+          CHANGELOG=`changelog --tag $TAG --file -`
+          echo "$CHANGELOG"
+          # https://github.community/t/set-output-truncates-multiline-strings/16852/3
+          CHANGELOG="${CHANGELOG//'%'/'%25'}"
+          CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
+          CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
+          echo "::set-output name=changelog::$CHANGELOG"
 
       - name: create release
         id: create_release
@@ -45,8 +61,7 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-          body: |
-            ${{ steps.changelog.outputs.changelog }}
+          body: ${{ steps.generate_changelog.outputs.changelog }}
 
       - name: upload release asset
         id: upload-release-asset
