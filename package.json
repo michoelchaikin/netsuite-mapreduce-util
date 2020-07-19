@@ -1,6 +1,6 @@
 {
   "name": "netsuite-mapreduce-util",
-  "version": "0.1.3-alpha",
+  "version": "0.1.4-alpha",
   "description": "A utility to aid in testing and developing NetSuite Map Reduce scripts",
   "repository": {
     "type": "git",
