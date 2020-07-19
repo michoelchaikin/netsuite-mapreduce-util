@@ -104,6 +104,10 @@ function getRecentTasks(deploymentId) {
 }
 
 function getTasksStageDetails(taskIds: string[]) {
+  if (!taskIds.length) {
+    return [];
+  }
+  
   const results = {};
 
   const filters = [];
