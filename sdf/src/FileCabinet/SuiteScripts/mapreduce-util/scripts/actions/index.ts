@@ -23,6 +23,7 @@ export const getDeployments = () => {
         'title',
         'scriptid',
         search.createColumn({ name: 'scriptid', join: 'script' }),
+        search.createColumn({ name: 'name', join: 'script' }),
       ],
     })
     .run()
@@ -31,6 +32,7 @@ export const getDeployments = () => {
         text: result.getValue({ name: 'title' }),
         value: {
           scriptId: result.getValue({ name: 'scriptid', join: 'script' }),
+          scriptName: result.getValue({ name: 'name', join: 'script' }),
           deploymentId: result.getValue({ name: 'scriptid' }),
           deploymentInternalID: result.id,
         },

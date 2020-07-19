@@ -32,7 +32,7 @@ The project was bootstrapped using [create-spa-netsuite](https://www.npmjs.com/p
 
 ### Select Deployment
 
-- [ ] Add script drop down and retrieve results for all deployments if only a script is selected
+- [x] Add script drop down and retrieve results for all deployments if only a script is selected
 - [ ] Refresh button on deployment (and script) drop-down to reload available deployments
 - [ ] Display feedback on if run button click was successful
 
