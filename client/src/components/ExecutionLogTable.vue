@@ -5,13 +5,24 @@
     </v-toolbar>
 
     <v-card-title>
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
+      <v-row>
+        <v-col>
+          <v-select
+            v-model="logTypeFilter"
+            :items="logTypes"
+            label="Log Type"
+          />
+        </v-col>
+        <v-col>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-col>
+      </v-row>
     </v-card-title>
 
     <v-data-table
@@ -57,20 +68,33 @@ export default Vue.extend({
 
   data() {
     return {
-      headers: [
-        { text: 'Type', value: 'type', width: '10%' },
-        { text: 'Date', value: 'date', width: '10%' },
-        { text: 'Time', value: 'time', width: '10%' },
-        { text: 'Title', value: 'title', width: '20%' },
-        { text: 'Details', value: 'detail', width: '50%' },
-      ],
       options: {
         sortBy: ['id'],
         sortDesc: [true],
       },
       expanded: [],
       search: '',
+      logTypes: ['- All -', 'Audit', 'Debug', 'Error', 'System'],
+      logTypeFilter: '- All -',
     };
+  },
+
+  computed: {
+    headers() {
+      return [
+        {
+          text: 'Type',
+          value: 'type',
+          width: '10%',
+          filter: (value: string): boolean =>
+            this.logTypeFilter === '- All -' || this.logTypeFilter === value,
+        },
+        { text: 'Date', value: 'date', width: '10%' },
+        { text: 'Time', value: 'time', width: '10%' },
+        { text: 'Title', value: 'title', width: '20%' },
+        { text: 'Details', value: 'detail', width: '50%' },
+      ];
+    },
   },
 });
 </script>

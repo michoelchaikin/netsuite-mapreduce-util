@@ -47,7 +47,7 @@ The project was bootstrapped using [create-spa-netsuite](https://www.npmjs.com/p
 - [x] JSON tree viewer for the data field in logs (using something like https://www.npmjs.com/package/vue-json-tree-view)
 - [ ] Option to clear logs?
 - [ ] Make it clearer when new logs are added (maybe a button "Load New Logs" twitter style, or just color logs differently for first couple seconds)
-- [ ] Add ability to filter by log type (DEBUG, AUDIT etc..)
+- [x] Add ability to filter by log type (DEBUG, AUDIT etc..)
 - [x] Add search box to filter logs
 
 ### Vue
