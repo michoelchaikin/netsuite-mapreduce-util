@@ -1,5 +1,5 @@
 <template>
-  <json-tree v-if="logDetailIsJSON" :raw="item.detail" />
+  <JsonTree v-if="logDetailIsJSON" :raw="item.detail" />
   <pre v-else>{{ item.detail }}</pre>
 </template>
 
@@ -10,15 +10,15 @@ import JsonTree from 'vue-json-tree';
 export default Vue.extend({
   name: 'ExecutionLogItem',
 
+  components: {
+    JsonTree,
+  },
+
   props: {
     item: {
       type: Object,
       required: true,
     },
-  },
-
-  components: {
-    JsonTree,
   },
 
   computed: {
