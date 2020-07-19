@@ -51,6 +51,7 @@ export default Vue.extend({
     selectedDeployment() {
       this.instances = [];
       this.logs = [];
+      this.lastLogId = 0;
       this.updateDeploymentInfo();
     },
   },
