@@ -5,7 +5,7 @@
     </v-toolbar>
 
     <v-card-title>
-      <v-row>
+      <v-row dense>
         <v-col>
           <v-select
             v-model="logTypeFilter"
