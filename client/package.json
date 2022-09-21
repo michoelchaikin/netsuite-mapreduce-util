@@ -20,7 +20,7 @@
     "ramda": "^0.27.0",
     "vue": "^2.6.11",
     "vue-json-tree": "^0.4.3",
-    "vuetify": "^2.2.32"
+    "vuetify": "^2.6.10"
   },
   "devDependencies": {
     "@types/crypto-js": "^3.1.47",
